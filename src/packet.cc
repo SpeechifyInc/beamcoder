@@ -700,25 +700,11 @@ napi_status fromAVPacket(napi_env env, packetData* p, napi_value* result) {
       (napi_property_attributes) (napi_writable | napi_enumerable), p },
     { "dts", nullptr, nullptr, getPacketDts, setPacketDts, nullptr,
       (napi_property_attributes) (napi_writable | napi_enumerable), p },
-    { "data", nullptr, nullptr, getPacketData, setPacketData, nullptr,
-      (napi_property_attributes) (napi_writable | napi_enumerable), p },
-    { "size", nullptr, nullptr, getPacketSize, setPacketSize, nullptr,
-      (napi_property_attributes) (napi_writable | napi_enumerable), p },
-    { "stream_index", nullptr, nullptr, getPacketStreamIndex, setPacketStreamIndex, nullptr,
-      (napi_property_attributes) (napi_writable | napi_enumerable), p },
-    { "flags", nullptr, nullptr, getPacketFlags, setPacketFlags, nullptr,
-      (napi_property_attributes) (napi_writable | napi_enumerable), p },
-    { "side_data", nullptr, nullptr, getPacketSideData, setPacketSideData, nullptr,
-      (napi_property_attributes) (napi_writable | napi_enumerable), p },
     { "duration", nullptr, nullptr, getPacketDuration, setPacketDuration, nullptr,
       (napi_property_attributes) (napi_writable | napi_enumerable), p },
-    // 10
-    { "pos", nullptr, nullptr, getPacketPos, setPacketPos, nullptr,
-      (napi_property_attributes) (napi_writable | napi_enumerable), p },
-    { "toJSON", nullptr, packetToJSON, nullptr, nullptr, nullptr, napi_default, p },
     { "_packet", nullptr, nullptr, nullptr, nullptr, extPacket, napi_default, nullptr }
   };
-  status = napi_define_properties(env, jsPacket, 12, desc);
+  status = napi_define_properties(env, jsPacket, 5, desc);
   PASS_STATUS;
 
   if (p->packet->buf != nullptr) {
