@@ -999,7 +999,7 @@ napi_value getFrameChanLayout(napi_env env, napi_callback_info info) {
   CHECK_STATUS;
 
   char channelLayoutName[64];
-  av_get_channel_layout_string(channelLayoutName, 64, 0, 
+  av_get_channel_layout_string(channelLayoutName, 64, 0,
     f->frame->channel_layout ? f->frame->channel_layout : av_get_default_channel_layout(f->frame->channels));
 
   status = napi_create_string_utf8(env, channelLayoutName, NAPI_AUTO_LENGTH, &result);
@@ -2537,95 +2537,9 @@ napi_status fromAVFrame(napi_env env, frameData* f, napi_value* result) {
   // TODO frame side data
   napi_property_descriptor desc[] = {
     { "type", nullptr, nullptr, getFrameTypeName, nop, nullptr, napi_enumerable, nullptr },
-    { "linesize", nullptr, nullptr, getFrameLinesize, setFrameLinesize, nullptr,
-      (napi_property_attributes) (napi_writable | napi_enumerable), f },
-    { "width", nullptr, nullptr, getFrameWidth, setFrameWidth, nullptr,
-      (napi_property_attributes) (napi_writable | napi_enumerable), f },
-    { "height", nullptr, nullptr, getFrameHeight, setFrameHeight, nullptr,
-      (napi_property_attributes) (napi_writable | napi_enumerable), f },
-    { "nb_samples", nullptr, nullptr, getFrameNbSamples, setFrameNbSamples, nullptr,
-      (napi_property_attributes) (napi_writable | napi_enumerable), f },
-    { "format", nullptr, nullptr, getFrameFormat, setFrameFormat, nullptr,
-      (napi_property_attributes) (napi_writable | napi_enumerable), f },
-    { "key_frame", nullptr, nullptr, getFrameKeyFrame, setFrameKeyFrame, nullptr,
-      (napi_property_attributes) (napi_writable | napi_enumerable), f },
-    { "pict_type", nullptr, nullptr, getFramePictType, setFramePictType, nullptr,
-      (napi_property_attributes) (napi_writable | napi_enumerable), f },
-    { "sample_aspect_ratio", nullptr, nullptr, getFrameSampleAR, setFrameSampleAR, nullptr,
-      (napi_property_attributes) (napi_writable | napi_enumerable), f },
-    // 10
-    { "pts", nullptr, nullptr, getFramePTS, setFramePTS, nullptr,
-      (napi_property_attributes) (napi_writable | napi_enumerable), f },
-    { "pkt_dts", nullptr, nullptr, getFramePktDTS, setFramePktDTS, nullptr,
-      (napi_property_attributes) (napi_writable | napi_enumerable), f },
-    { "coded_picture_number", nullptr, nullptr, getFrameCodedPicNum, setFrameCodedPicNum, nullptr,
-      (napi_property_attributes) (napi_writable | napi_enumerable), f },
-    { "display_picture_number", nullptr, nullptr, getFrameDispPicNum, setFrameDispPicNum, nullptr,
-      (napi_property_attributes) (napi_writable | napi_enumerable), f },
-    { "quality", nullptr, nullptr, getFrameQuality, setFrameQuality, nullptr,
-      (napi_property_attributes) (napi_writable | napi_enumerable), f },
-    { "repeat_pict", nullptr, nullptr, getFrameRepeatPict, setFrameRepeatPict, nullptr,
-      (napi_property_attributes) (napi_writable | napi_enumerable), f },
-    { "interlaced_frame", nullptr, nullptr, getFrameInterlaced, setFrameInterlaced, nullptr,
-      (napi_property_attributes) (napi_writable | napi_enumerable), f },
-    { "top_field_first", nullptr, nullptr, getFrameTopFieldFirst, setFrameTopFieldFirst, nullptr,
-      (napi_property_attributes) (napi_writable | napi_enumerable), f },
-    { "palette_has_changed", nullptr, nullptr, getFramePalHasChanged, setFramePalHasChanged, nullptr,
-      (napi_property_attributes) (napi_writable | napi_enumerable), f },
-    { "reordered_opaque", nullptr, nullptr, getFrameReorderOpq, setFrameReorderOpq, nullptr,
-      (napi_property_attributes) (napi_writable | napi_enumerable), f },
-    // 20
-    { "sample_rate", nullptr, nullptr, getFrameSampleRate, setFrameSampleRate, nullptr,
-      (napi_property_attributes) (napi_writable | napi_enumerable), f },
-    { "channel_layout", nullptr, nullptr, getFrameChanLayout, setFrameChanLayout, nullptr,
-      (napi_property_attributes) (napi_writable | napi_enumerable), f },
-    { "data", nullptr, nullptr, getFrameData, setFrameData, nullptr,
-      (napi_property_attributes) (napi_writable | napi_enumerable), f },
-    { "side_data", nullptr, nullptr, getFrameSideData, setFrameSideData, nullptr,
-      (napi_property_attributes) (napi_writable | napi_enumerable), f },
-    { "flags", nullptr, nullptr, getFrameFlags, setFrameFlags, nullptr,
-      (napi_property_attributes) (napi_writable | napi_enumerable), f },
-    { "color_range", nullptr, nullptr, getFrameColorRange, setFrameColorRange, nullptr,
-      (napi_property_attributes) (napi_writable | napi_enumerable), f },
-    { "color_primaries", nullptr, nullptr, getFrameColorPrimaries, setFrameColorPrimaries, nullptr,
-      (napi_property_attributes) (napi_writable | napi_enumerable), f },
-    { "color_trc", nullptr, nullptr, getFrameColorTrc, setFrameColorTrc, nullptr,
-      (napi_property_attributes) (napi_writable | napi_enumerable), f },
-    { "colorspace", nullptr, nullptr, getFrameColorspace, setFrameColorspace, nullptr,
-      (napi_property_attributes) (napi_writable | napi_enumerable), f },
-    { "chroma_location", nullptr, nullptr, getFrameChromaLoc, setFrameChromaLoc, nullptr,
-      (napi_property_attributes) (napi_writable | napi_enumerable), f },
-    // 30
-    { "best_effort_timestamp", nullptr, nullptr, getFrameBestEffortTS, setFrameBestEffortTS, nullptr,
-      (napi_property_attributes) (napi_writable | napi_enumerable), f },
-    { "pkt_pos", nullptr, nullptr, getFramePktPos, setFramePktPos, nullptr,
-      (napi_property_attributes) (napi_writable | napi_enumerable), f },
-    { "pkt_duration", nullptr, nullptr, getFramePktDuration, setFramePktDuration, nullptr,
-      (napi_property_attributes) (napi_writable | napi_enumerable), f },
-    { "metadata", nullptr, nullptr, getFrameMetadata, setFrameMetadata, nullptr,
-      (napi_property_attributes) (napi_writable | napi_enumerable), f },
-    { "decode_error_flags", nullptr, nullptr, getFrameDecodeErrFlags, setFrameDecodeErrFlags, nullptr,
-      (napi_property_attributes) (napi_writable | napi_enumerable), f },
-    { "channels", nullptr, nullptr, getFrameChannels, setFrameChannels, nullptr,
-      (napi_property_attributes) (napi_writable | napi_enumerable), f },
-    { "pkt_size", nullptr, nullptr, getFramePktSize, setFramePktSize, nullptr,
-      (napi_property_attributes) (napi_writable | napi_enumerable), f },
-    { "hw_frames_ctx", nullptr, nullptr, getFrameHWFramesCtx, setFrameHWFramesCtx, nullptr,
-      (napi_property_attributes) (napi_writable | napi_enumerable), f},
-    { "crop_top", nullptr, nullptr, getFrameCropTop, setFrameCropTop, nullptr,
-      (napi_property_attributes) (napi_writable | napi_enumerable), f },
-    { "crop_bottom", nullptr, nullptr, getFrameCropBottom, setFrameCropBottom, nullptr,
-      (napi_property_attributes) (napi_writable | napi_enumerable), f },
-    // 40
-    { "crop_left", nullptr, nullptr, getFrameCropLeft, setFrameCropLeft, nullptr,
-      (napi_property_attributes) (napi_writable | napi_enumerable), f },
-    { "crop_right", nullptr, nullptr, getFrameCropRight, setFrameCropRight, nullptr,
-      (napi_property_attributes) (napi_writable | napi_enumerable), f },
-    { "alloc", nullptr, alloc, nullptr, nullptr, nullptr, napi_enumerable, nullptr },
-    { "toJSON", nullptr, frameToJSON, nullptr, nullptr, nullptr, napi_default, f },
     { "_frame", nullptr, nullptr, nullptr, nullptr, extFrame, napi_default, nullptr }
   };
-  status = napi_define_properties(env, jsFrame, 44, desc);
+  status = napi_define_properties(env, jsFrame, 2, desc);
   PASS_STATUS;
 
   for ( int x = 0 ; x < AV_NUM_DATA_POINTERS ; x++ ) {
