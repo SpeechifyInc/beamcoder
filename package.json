@@ -5,7 +5,7 @@
   "main": "index.js",
   "types": "index.d.ts",
   "scripts": {
-    "preinstall": "bash setup-ffmpeg.sh",
+    "preinstall": "git submodule init && git submodule update && bash setup-ffmpeg.sh",
     "install": "node-gyp rebuild",
     "test": "tape test/*.js",
     "lint": "eslint **/*.js",
