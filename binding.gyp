@@ -23,64 +23,17 @@
         ],
         "link_settings": {
           "libraries": [
-            "-lavcodec",
-            "-lavdevice",
-            "-lavfilter",
-            "-lavformat",
-            "-lavutil",
-            "-lpostproc",
-            "-lswresample",
-            "-lswscale"
+            "<(module_root_dir)/ffmpeg/build/lib/libavcodec.so",
+            "<(module_root_dir)/ffmpeg/build/lib/libavdevice.so",
+            "<(module_root_dir)/ffmpeg/build/lib/libavfilter.so",
+            "<(module_root_dir)/ffmpeg/build/lib/libavformat.so",
+            "<(module_root_dir)/ffmpeg/build/lib/libavutil.so",
+            "<(module_root_dir)/ffmpeg/build/lib/libpostproc.so",
+            "<(module_root_dir)/ffmpeg/build/lib/libswresample.so",
+            "<(module_root_dir)/ffmpeg/build/lib/libswscale.so"
           ]
         }
-      }],
-      ['OS=="win"', {
-        "configurations": {
-          "Release": {
-            "msvs_settings": {
-              "VCCLCompilerTool": {
-                "RuntimeTypeInfo": "true"
-              }
-            }
-          }
-        },
-        "include_dirs" : [
-          "ffmpeg/ffmpeg-5.x-win64-shared/include"
-        ],
-        "libraries": [
-          "-l../ffmpeg/ffmpeg-5.x-win64-shared/lib/avcodec",
-          "-l../ffmpeg/ffmpeg-5.x-win64-shared/lib/avdevice",
-          "-l../ffmpeg/ffmpeg-5.x-win64-shared/lib/avfilter",
-          "-l../ffmpeg/ffmpeg-5.x-win64-shared/lib/avformat",
-          "-l../ffmpeg/ffmpeg-5.x-win64-shared/lib/avutil",
-          "-l../ffmpeg/ffmpeg-5.x-win64-shared/lib/postproc",
-          "-l../ffmpeg/ffmpeg-5.x-win64-shared/lib/swresample",
-          "-l../ffmpeg/ffmpeg-5.x-win64-shared/lib/swscale"
-        ],
-        "copies": [
-            {
-              "destination": "build/Release/",
-              "files": [
-                "ffmpeg/ffmpeg-5.x-win64-shared/bin/avcodec-59.dll",
-                "ffmpeg/ffmpeg-5.x-win64-shared/bin/avdevice-59.dll",
-                "ffmpeg/ffmpeg-5.x-win64-shared/bin/avfilter-8.dll",
-                "ffmpeg/ffmpeg-5.x-win64-shared/bin/avformat-59.dll",
-                "ffmpeg/ffmpeg-5.x-win64-shared/bin/avutil-57.dll",
-                "ffmpeg/ffmpeg-5.x-win64-shared/bin/postproc-56.dll",
-                "ffmpeg/ffmpeg-5.x-win64-shared/bin/swresample-4.dll",
-                "ffmpeg/ffmpeg-5.x-win64-shared/bin/swscale-6.dll"
-              ]
-            }
-          ]
-    }],
-    ['OS=="mac"', {
-      "include_dirs" : [
-        "/opt/homebrew/Cellar/ffmpeg/5.0/include"
-      ],
-      "library_dirs": [
-        "/opt/homebrew/Cellar/ffmpeg/5.0/lib",
-      ]
-    }],
+      }]
   ]
 }]
 }
