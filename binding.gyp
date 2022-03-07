@@ -21,6 +21,9 @@
           "-std=c++11",
           "-fexceptions"
         ],
+        "include_dirs": [
+          "<(module_root_dir)/ffmpeg/build/include"
+        ],
         "link_settings": {
           "libraries": [
             "<(module_root_dir)/ffmpeg/build/lib/libavcodec.so",
@@ -34,6 +37,6 @@
           ]
         }
       }]
-  ]
-}]
+    ]
+  }]
 }
