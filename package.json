@@ -6,7 +6,7 @@
   "types": "index.d.ts",
   "scripts": {
     "preinstall": "git submodule init && git submodule update && bash setup-ffmpeg.sh",
-    "install": "node-gyp build -j 8",
+    "install": "node-gyp rebuild -j 8",
     "test": "tape test/*.js",
     "lint": "eslint **/*.js",
     "lint-html": "eslint **/*.js -f html -o ./reports/lint-results.html",
