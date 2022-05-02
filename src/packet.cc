@@ -696,6 +696,8 @@ napi_status fromAVPacket(napi_env env, packetData* p, napi_value* result) {
   napi_property_descriptor desc[] = {
     { "type", nullptr, nullptr, getPacketTypeName, nop, nullptr,
       (napi_property_attributes) (napi_writable | napi_enumerable), nullptr },
+    { "data", nullptr, nullptr, getPacketData, setPacketData, nullptr,
+      (napi_property_attributes) (napi_writable | napi_enumerable), p },
     { "pts", nullptr, nullptr, getPacketPts, setPacketPts, nullptr,
       (napi_property_attributes) (napi_writable | napi_enumerable), p },
     { "dts", nullptr, nullptr, getPacketDts, setPacketDts, nullptr,
@@ -704,7 +706,7 @@ napi_status fromAVPacket(napi_env env, packetData* p, napi_value* result) {
       (napi_property_attributes) (napi_writable | napi_enumerable), p },
     { "_packet", nullptr, nullptr, nullptr, nullptr, extPacket, napi_default, nullptr }
   };
-  status = napi_define_properties(env, jsPacket, 5, desc);
+  status = napi_define_properties(env, jsPacket, 6, desc);
   PASS_STATUS;
 
   if (p->packet->buf != nullptr) {
