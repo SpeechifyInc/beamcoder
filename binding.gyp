@@ -21,13 +21,7 @@
         "<(module_root_dir)/ffmpeg/build/lib/libavutil.so",
         "<(module_root_dir)/ffmpeg/build/lib/libpostproc.so",
         "<(module_root_dir)/ffmpeg/build/lib/libswresample.so",
-        "<(module_root_dir)/ffmpeg/build/lib/libswscale.so",
-        "<(module_root_dir)/ffmpeg/build/lib/libmp3lame.so",
-        "<(module_root_dir)/ffmpeg/build/lib/libogg.so",
-        "<(module_root_dir)/ffmpeg/build/lib/libopus.so",
-        "<(module_root_dir)/ffmpeg/build/lib/libvorbis.so",
-        "<(module_root_dir)/ffmpeg/build/lib/libvorbisenc.so",
-        "<(module_root_dir)/ffmpeg/build/lib/libvorbisfile.so"
+        "<(module_root_dir)/ffmpeg/build/lib/libswscale.so"
       ]
     }
   }]
