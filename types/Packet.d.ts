@@ -73,6 +73,8 @@ export interface Packet {
 	duration: number
 	/** byte position in stream, -1 if unknown */
 	pos: number
+  /** Rescale a packet's timebase */
+  rescale(inTimeBase: number, outTimeBase: number): void
 }
 
 /**

@@ -681,6 +681,31 @@ napi_value packetToJSON(napi_env env, napi_callback_info info) {
   return result;
 }
 
+napi_value rescale(napi_env env, napi_callback_info info) {
+  napi_status status;
+  napi_value result;
+  napi_value args[2];
+  packetData* p;
+
+  size_t argc = 2;
+  status = napi_get_cb_info(env, info, &argc, args, nullptr, (void**) &p);
+  CHECK_STATUS;
+
+  int32_t inTimeBase = 0;
+  int32_t outTimeBase = 0;
+  status = napi_get_value_int32(env, args[0], &inTimeBase);
+  CHECK_STATUS;
+  status = napi_get_value_int32(env, args[1], &outTimeBase);
+  CHECK_STATUS;
+
+  av_packet_rescale_ts(p->packet, av_make_q(1, inTimeBase), av_make_q(1, outTimeBase));
+
+  status = napi_create_object(env, &result);
+  CHECK_STATUS;
+
+  return result;
+}
+
 napi_status fromAVPacket(napi_env env, packetData* p, napi_value* result) {
   napi_status status;
   napi_value jsPacket, extPacket, typeName;
@@ -704,9 +729,10 @@ napi_status fromAVPacket(napi_env env, packetData* p, napi_value* result) {
       (napi_property_attributes) (napi_writable | napi_enumerable), p },
     { "duration", nullptr, nullptr, getPacketDuration, setPacketDuration, nullptr,
       (napi_property_attributes) (napi_writable | napi_enumerable), p },
+    { "rescale", nullptr, rescale, nullptr, nullptr, nullptr, napi_default, p },
     { "_packet", nullptr, nullptr, nullptr, nullptr, extPacket, napi_default, nullptr }
   };
-  status = napi_define_properties(env, jsPacket, 6, desc);
+  status = napi_define_properties(env, jsPacket, 7, desc);
   PASS_STATUS;
 
   if (p->packet->buf != nullptr) {
