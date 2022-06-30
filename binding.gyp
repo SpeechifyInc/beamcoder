@@ -10,19 +10,6 @@
                 "src/codec.cc", "src/hwcontext.cc"],
     "defines": ["__STDC_CONSTANT_MACROS"],
     "cflags_cc!": ["-fno-rtti", "-fno-exceptions"],
-    "cflags_cc": [ "-std=c++11", "-fexceptions"],
-    "include_dirs": ["<(module_root_dir)/ffmpeg/build/include"],
-    "link_settings": {
-      "libraries": [
-        "<(module_root_dir)/ffmpeg/build/lib/libavcodec.so",
-        "<(module_root_dir)/ffmpeg/build/lib/libavdevice.so",
-        "<(module_root_dir)/ffmpeg/build/lib/libavfilter.so",
-        "<(module_root_dir)/ffmpeg/build/lib/libavformat.so",
-        "<(module_root_dir)/ffmpeg/build/lib/libavutil.so",
-        "<(module_root_dir)/ffmpeg/build/lib/libpostproc.so",
-        "<(module_root_dir)/ffmpeg/build/lib/libswresample.so",
-        "<(module_root_dir)/ffmpeg/build/lib/libswscale.so"
-      ]
-    }
+    "cflags_cc": [ "-std=c++11", "-fexceptions"]
   }]
 }
